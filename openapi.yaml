@@ -1,0 +1,88 @@
+openapi: 3.0.0
+info:
+  title: Audit Logs API
+  description: API for retrieving audit logs for employee changes.
+  version: 1.0.0
+servers:
+  - url: https://api.yourdomain.com/v1
+paths:
+  /audit-logs/last-changes/{employeeId}:
+    get:
+      summary: Get the last changes for each field of an employee
+      operationId: getLastChanges
+      parameters:
+        - name: employeeId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID of the employee to retrieve last changes for
+      responses:
+        '200':
+          description: List of the last changes for each field of the employee
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  employeeId:
+                    type: string
+                    description: ID of the employee
+                  changes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                          description: Name of the field
+                        oldValue:
+                          type: string
+                          description: Previous value of the field
+                        newValue:
+                          type: string
+                          description: New value of the field
+                        changedAt:
+                          type: string
+                          format: date-time
+                          description: Timestamp of the change
+        '404':
+          description: Employee not found
+  /audit-logs/changes-history/{employeeId}:
+    get:
+      summary: Get the changes history for an employee
+      operationId: getChangesHistory
+      parameters:
+        - name: employeeId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID of the employee to retrieve changes history for
+      responses:
+        '200':
+          description: List of changes for the employee
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  employeeId:
+                    type: string
+                    description: ID of the employee
+                  history:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        fields:
+                          type: array
+                          items:
+                            type: string
+                          description: List of fields that changed
+                        changedAt:
+                          type: string
+                          format: date-time
+                          description: Timestamp of the change
+        '404':
+          description: Employee not found
