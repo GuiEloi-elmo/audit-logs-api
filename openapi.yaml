@@ -27,12 +27,15 @@ paths:
                 properties:
                   employeeId:
                     type: string
-                    description: ID of the employee
+                    description: ID of the employee changed
                   changes:
                     type: array
                     items:
                       type: object
                       properties:
+                        changedBy:
+                          type: string
+                          description: ID of the employee that performed the change
                         field:
                           type: string
                           description: Name of the field
@@ -69,12 +72,15 @@ paths:
                 properties:
                   employeeId:
                     type: string
-                    description: ID of the employee
+                    description: ID of the employee changed
                   history:
                     type: array
                     items:
                       type: object
                       properties:
+                        changedBy:
+                          type: string
+                          description: ID of the employee that performed the change
                         fields:
                           type: array
                           items:
